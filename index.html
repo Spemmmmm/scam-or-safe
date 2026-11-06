@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Scam or Safe? | Class IX Digital Technology and Innovation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <!-- Start screen -->
+    <section id="intro">
+      <h1>Scam or safe?</h1>
+      <p class="sub">Class IX Digital Technology and Innovation | Chapter 8.1</p>
+      <div class="how">
+        <p><b>Your mission:</b> read each message and decide if it is a scam or safe.</p>
+        <p><b>Swipe left</b> for <b>Scam</b>. <b>Swipe right</b> for <b>Safe</b>. You can also tap a button.</p>
+        <p>Correct answer: <b>+10 points</b>. Wrong answer: <b>−5 points</b>. Listen for the sounds!</p>
+      </div>
+      <div class="btns"><button class="big" id="startBtn">Start the game</button></div>
+    </section>
+
+    <!-- Game screen -->
+    <section id="play" class="hide">
+      <div class="hud">
+        <span class="prog" id="progress"></span>
+        <button class="sound" id="soundBtn" type="button">Sound: on</button>
+        <span class="pts" id="score"></span>
+      </div>
+      <div class="tray" id="tray" aria-hidden="true"></div>
+      <div class="swipebar" aria-hidden="true"><span id="swipeL">&larr; Swipe for Scam</span><span id="swipeR">Swipe for Safe &rarr;</span></div>
+      <div class="stage" id="stage"></div>
+      <div class="btns" id="actions"></div>
+      <p class="hint" id="hint">Keyboard: left arrow = Scam, right arrow = Safe</p>
+      <div id="feedback" aria-live="polite"></div>
+    </section>
+
+    <!-- Result screen -->
+    <section id="end" class="hide"></section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

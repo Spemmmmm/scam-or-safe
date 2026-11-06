@@ -1,0 +1,149 @@
+/* Scam or Safe? | styles */
+:root{
+  --bg1:#FBF4E4; --bg2:#F0E2C3; --ink:#1B2733; --muted:#5B6770; --card:#FFFDF8; --line:#E2D6BA;
+  --scam:#B3261E; --scam-soft:#FBE9E7; --safe:#1F7A52; --safe-soft:#E4F4EC;
+  --navy:#12304A; --gold:#F2A900; --gold-deep:#C98700; --btn-text:#FFFFFF; --pill-text:#FFFFFF; --sun:rgba(242,169,0,.30);
+  --far:#E6D7B4; --near:#D8C59A;
+  font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg1:#0B1622; --bg2:#14283B; --ink:#EEF2F5; --muted:#9FB0BD; --card:#192D40; --line:#2C4157;
+        --scam:#FF8A80; --scam-soft:#3A2327; --safe:#5FD3A0; --safe-soft:#17352B;
+        --navy:#CADCFC; --btn-text:#0E1A26; --pill-text:#0E1A26; --sun:rgba(242,169,0,.14); --far:#182E43; --near:#1F3A53;}
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  color:var(--ink);font-size:18px;line-height:1.5;display:flex;justify-content:center;min-height:100vh;
+  background:radial-gradient(circle at 88% 6%, var(--sun), transparent 38%),linear-gradient(180deg,var(--bg1),var(--bg2));
+  background-attachment:fixed;
+}
+/* Mountains at the bottom (two layers, coloured by variables) */
+body::before,body::after{content:"";position:fixed;left:0;right:0;bottom:0;z-index:-1;pointer-events:none;
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+body::before{height:34vh;max-height:300px;background:var(--far);
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200V90L150 30 300 100 450 20 620 110 760 40 920 115 1060 45 1200 100V200Z'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200V90L150 30 300 100 450 20 620 110 760 40 920 115 1060 45 1200 100V200Z'/%3E%3C/svg%3E")}
+body::after{height:22vh;max-height:200px;background:var(--near);
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200V120L120 70 230 130 360 50 500 135 640 85 780 140 930 60 1070 120 1200 80V200Z'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200V120L120 70 230 130 360 50 500 135 640 85 780 140 930 60 1070 120 1200 80V200Z'/%3E%3C/svg%3E")}
+
+main{width:100%;max-width:540px;padding:36px 18px 40px;position:relative}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.05;margin:0 0 8px;color:var(--navy);letter-spacing:-.5px}
+h1::after{content:"";display:block;width:64px;height:5px;border-radius:3px;margin-top:10px;background:linear-gradient(90deg,var(--gold),var(--scam))}
+h2{font-family:Georgia,serif;margin:0 0 4px;color:var(--navy)}
+.sub{color:var(--muted);margin:0 0 18px;font-size:16px}
+.hide{display:none}
+
+/* Instructions box */
+.how{background:var(--card);border:2px solid var(--line);border-left:8px solid var(--gold);border-radius:18px;
+  padding:6px 18px;margin:0 0 20px;font-size:17px;box-shadow:0 10px 24px rgba(18,48,74,.10)}
+.how p{margin:12px 0}
+
+/* Top bar */
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700}
+.prog{color:var(--muted);font-size:15px;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:2px 14px}
+.pts{color:var(--btn-text);background:var(--navy);border-radius:20px;padding:2px 16px;font-size:20px}
+
+/* Sound toggle and score note */
+.sound{flex:none;min-height:0;padding:3px 12px;border-radius:20px;font-size:13px;font-weight:700;border:2px solid var(--line);
+  background:var(--card);color:var(--muted);box-shadow:none}
+.sound.off{opacity:.6}
+.sound:active{transform:none;box-shadow:none}
+.maxnote{margin:0 8px 8px;color:var(--muted);font-size:14px}
+
+/* Answer checklist: green = correct, red = wrong, gold outline = current message */
+.tray{display:flex;gap:6px;margin-bottom:16px}
+.tray i{flex:1;height:30px;border-radius:8px;border:2px dashed var(--line);display:flex;align-items:center;justify-content:center;
+  font-style:normal;font-weight:700;font-size:15px;color:transparent;background:var(--card)}
+.tray i.ok{background:var(--safe);border:2px solid var(--safe);color:var(--pill-text)}
+.tray i.no{background:var(--scam);border:2px solid var(--scam);color:var(--pill-text)}
+.tray i.now{border:2px solid var(--gold);background:rgba(242,169,0,.2)}
+
+/* Swipe guide */
+.swipebar{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;font-weight:700;font-size:14px;white-space:nowrap}
+.swipebar span{border-radius:20px;padding:4px 14px;border:2px solid;background:var(--card);transition:transform .15s,background .15s,color .15s}
+#swipeL{color:var(--scam);border-color:var(--scam)}
+#swipeR{color:var(--safe);border-color:var(--safe)}
+#swipeL.active{background:var(--scam);color:var(--card);transform:scale(1.1)}
+#swipeR.active{background:var(--safe);color:var(--card);transform:scale(1.1)}
+
+/* The swipe card */
+.stage{position:relative;height:320px;touch-action:pan-y}
+.card{position:absolute;inset:0;background:var(--card);border:3px solid var(--line);border-radius:24px;touch-action:pan-y;
+  padding:26px 24px;display:flex;flex-direction:column;justify-content:center;cursor:grab;user-select:none;
+  transition:transform .25s,border-color .2s,background .3s;
+  box-shadow:0 8px 0 var(--line),0 22px 36px rgba(18,48,74,.18)}
+.card::before{content:"";position:absolute;inset:8px;border:1.5px dashed var(--line);border-radius:17px;pointer-events:none}
+.card.dragging{transition:none;cursor:grabbing}
+.card.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.card.wiggle{animation:wiggle 1.2s ease-in-out .4s 2}
+@keyframes wiggle{0%,100%{transform:none}25%{transform:translateX(-26px) rotate(-3deg)}75%{transform:translateX(26px) rotate(3deg)}}
+.where{align-self:flex-start;font-size:14px;color:var(--navy);background:var(--bg2);border-radius:20px;padding:2px 14px;margin-bottom:14px;font-weight:700}
+.text{font-family:Georgia,serif;font-size:24px;line-height:1.4;font-weight:700}
+.card.scam,.card.lean-scam{border-color:var(--scam);background:linear-gradient(var(--scam-soft),var(--card) 70%)}
+.card.safe,.card.lean-safe{border-color:var(--safe);background:linear-gradient(var(--safe-soft),var(--card) 70%)}
+
+/* SCAM / SAFE stamp */
+.stamp{position:absolute;right:16px;top:16px;border:5px solid;border-radius:10px;padding:0 12px;
+  font-family:Georgia,serif;font-weight:700;font-size:32px;transform:rotate(-8deg) scale(1.7);opacity:0;background:var(--card)}
+.stamp.show{animation:stamp .3s ease-out forwards}
+@keyframes stamp{to{transform:rotate(-8deg) scale(1);opacity:1}}
+.card.scam .stamp,.card.lean-scam .stamp{color:var(--scam)}
+.card.safe .stamp,.card.lean-safe .stamp{color:var(--safe)}
+.dot{position:absolute;left:50%;top:45%;width:10px;height:10px;border-radius:50%;pointer-events:none;z-index:3}
+
+/* Buttons */
+.btns{display:flex;gap:14px;margin-top:22px}
+button{font:inherit;font-weight:700;border-radius:18px;border:0;padding:14px 10px;min-height:58px;cursor:pointer;flex:1;
+  transition:transform .1s,box-shadow .1s;box-shadow:0 5px 0 rgba(0,0,0,.22)}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+button:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
+.btn-scam{background:var(--scam);color:var(--pill-text)}
+.btn-safe{background:var(--safe);color:var(--pill-text)}
+.btn-scam::before{content:"\2715  "}
+.btn-safe::before{content:"\2713  "}
+.big{background:var(--navy);color:var(--btn-text);font-size:20px}
+.hint{text-align:center;color:var(--muted);font-size:14px;margin:12px 0 0}
+
+/* Feedback box */
+.fb{margin-top:18px;padding:14px 18px;border-radius:16px;background:var(--card);border:2px solid var(--line);border-left-width:8px;box-shadow:0 8px 20px rgba(18,48,74,.10)}
+.fb b{display:block;margin-bottom:2px}
+.fb.good{border-color:var(--safe)}
+.fb.bad{border-color:var(--scam)}
+.flag{color:var(--muted);font-size:16px;margin-top:6px}
+
+/* Results screen */
+#end{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:22px 12px;box-shadow:0 10px 26px rgba(18,48,74,.14)}
+#end h2,#end .rep-head,#end .remember{padding:0 8px}
+.score-big{font-family:Georgia,serif;font-size:64px;color:var(--navy);margin:4px 0 0;line-height:1}
+.badge{display:inline-block;background:linear-gradient(90deg,var(--gold),var(--gold-deep));color:#1B2733;font-weight:700;border-radius:20px;padding:4px 18px;margin:10px 0}
+.counts{display:flex;gap:10px;margin:8px 8px 14px}
+.counts div{flex:1;border-radius:14px;padding:6px 10px;font-weight:700;text-align:center}
+.counts .c-ok{background:var(--safe-soft);color:var(--safe);border:2px solid var(--safe)}
+.counts .c-no{background:var(--scam-soft);color:var(--scam);border:2px solid var(--scam)}
+.tablewrap{overflow-x:auto;border-radius:14px;border:2px solid var(--line)}
+table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:13px;line-height:1.35}
+th{background:var(--navy);color:var(--btn-text);text-align:left;padding:8px 6px;font-size:11px;letter-spacing:.5px;text-transform:uppercase}
+td{padding:9px 6px;vertical-align:top;border-top:1px solid var(--line)}
+col.c1{width:30px}col.c3{width:62px}col.c4{width:84px}
+td:first-child{font-weight:700;padding-left:10px}
+td b{font-weight:400;font-family:Georgia,serif;font-size:14px}
+tr.ok td{background:var(--safe-soft)}
+tr.no td{background:var(--scam-soft)}
+tr.ok td:first-child{box-shadow:inset 6px 0 0 var(--safe)}
+tr.no td:first-child{box-shadow:inset 6px 0 0 var(--scam)}
+.why{color:var(--muted);font-size:13px;margin-top:4px}
+.pill{display:inline-block;border-radius:6px;padding:1px 6px;font-weight:700;font-size:11px;letter-spacing:.5px;color:var(--pill-text)}
+.pill.scam{background:var(--scam)}.pill.safe{background:var(--safe)}
+td.res{font-weight:700}
+tr.ok td.res{color:var(--safe)}tr.no td.res{color:var(--scam)}
+.remember{margin:16px 0 0;font-weight:700;text-align:center}
+#end .btns{padding:0 8px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .stamp.show{opacity:1;transform:rotate(-8deg)}
+}
